@@ -49,6 +49,9 @@
 #define PATH_MNT "/mnt/"
 #define PATH_ROM "/rom/"
 
+/**
+ * Holds Wifi Mode value
+ */
 typedef enum {
 	WiFi_11A = 0,
 	WiFi_11B,
@@ -58,6 +61,9 @@ typedef enum {
 	WiFi_EOF = 999,
 } wifi_mode_e;
 
+/**
+ * Holds Wifi frequency value
+ */
 typedef enum {
 	WiFi_24G = 0,
 	WiFi_5G,
@@ -65,6 +71,9 @@ typedef enum {
 	WiFi_FREQ_EOF
 } wifi_freq_e;
 
+/**
+ * Holds Wifi Security type information
+ */
 typedef enum {
 	NONE_SEC = 0,
 	WEP,
@@ -72,6 +81,9 @@ typedef enum {
 	WPA2_PSK
 } wifi_sec_type_e;
 
+/**
+ * Holds Wifi Encryption type information
+ */
 typedef enum {
 	NONE_ENC = 0,
 	WEP_64,
@@ -81,20 +93,29 @@ typedef enum {
 	TKIP_AES
 } wifi_enc_type_e;
 
+/**
+ * Holds Enroller information
+ */
 typedef struct {
 	char ssid[WIFIMGR_SSID_LEN + 1];	/**< ssid of the Enroller**/
 	char pwd[WIFIMGR_PASSPHRASE_LEN + 1]; /**< pwd of the Enroller**/
 	wifi_sec_type_e sectype;	/**< security type of the Enroller**/
 	wifi_enc_type_e enctype; /**< encryption type of the Enroller**/
-	int discovery_channel;		// samsung specific property
+	int discovery_channel;		//samsung specific property
 } es_wifi_prov_data_s;
 
+/**
+ * Holds Enroller configuration information
+ */
 typedef struct {
-	char language[THINGS_STRING_MAX_LENGTH];
-	char country[THINGS_STRING_MAX_LENGTH];
-	char datetime[THINGS_STRING_MAX_LENGTH];
+	char language[THINGS_STRING_MAX_LENGTH];	//Language of the enroller
+	char country[THINGS_STRING_MAX_LENGTH];		//Country of the enroller
+	char datetime[THINGS_STRING_MAX_LENGTH];	//Data and time of the enroller
 } es_dev_conf_prov_data_s;
 
+/**
+ * Holds Enroller cloud information
+ */
 typedef struct {
 	char auth_code[THINGS_STRING_MAX_LENGTH];
 	char auth_provider[THINGS_STRING_MAX_LENGTH];
@@ -110,18 +131,24 @@ typedef struct {
 	char uid[THINGS_STRING_MAX_LENGTH];
 } es_cloud_prov_data_s;
 
+/**
+ * Holds things cloud information
+ */
 typedef struct things_cloud_info_s {
-	char *domain;			// mandatory ( You can choose one in both "domain" and "ip". )
+	char *domain;			//mandatory ( You can choose one in both "domain" and "ip". )
 	char *ip;
-	char *port;				// optional
-	char *auth_provider;	// mandatory
-	char *access_token;		// mandatory
-	char *access_token_type;	// optional
-	char *refresh_token;	// mandatory
-	char *user_id;			// mandatory
-	char *client_id;		// mandatory
+	char *port;				//optional
+	char *auth_provider;	//mandatory
+	char *access_token;		//mandatory
+	char *access_token_type;	//optional
+	char *refresh_token;	//mandatory
+	char *user_id;			//mandatory
+	char *client_id;		//mandatory
 } things_cloud_info_s;
 
+/**
+ * Holds things information
+ */
 typedef struct things_info_s {
 	char device_id[MAX_DEVICEID_LEN];
 	char resource[MAX_RESOURCE_LEN];
@@ -135,6 +162,9 @@ typedef struct things_info_s {
 	void *resource_handle;
 } things_info_s;
 
+/**
+ * Holds things attribute information
+ */
 typedef struct things_attribute_info_s {
 	char key[MAX_KEY_LENGTH];
 	char spec[MAX_SPEC_LENGTH];
@@ -143,28 +173,34 @@ typedef struct things_attribute_info_s {
 	int rw;
 } things_attribute_info_s;
 
+/**
+ * Holds things resource information
+ */
 typedef struct things_resource_info_s {
-	char rid[MAX_RID_LENGTH];
-	char uri[MAX_URI_LEN];
-	char *interface_types[MAX_IT_CNT];
-	char *resource_types[MAX_RT_CNT];
+	char rid[MAX_RID_LENGTH];	//Resource id
+	char uri[MAX_URI_LEN];		//Resource uri
+	char *interface_types[MAX_IT_CNT];	//Interface types
+	char *resource_types[MAX_RT_CNT];	//Resource types
 
-	int if_cnt;
-	int rt_cnt;
+	int if_cnt;		//Count of interface
+	int rt_cnt;		//Count of resource type
 	bool observable;
 	int policy;
 } things_resource_info_s;
 
+/**
+ * Holds enrolle reset type information
+ */
 typedef enum {
-	RST_NEED_CONFIRM = 0,
+	RST_NEED_CONFIRM = 0,	//Need confirmaition for reset
 
-	RST_AUTO_RESET = 1,
+	RST_AUTO_RESET = 1,	//Auto reset type
 
 	RST_ENUM_EOF
 } things_es_enrollee_reset_e;
 
 /**
- * @brief Indicate enrollee and provisioning status. Provisioning status is shown in "provisioning
+ * brief Indicate enrollee and provisioning status. Provisioning status is shown in "provisioning
  *        status" property in provisioning resource.
  */
 typedef enum {
@@ -229,14 +265,17 @@ typedef enum {
 	ES_STATE_EOF = 255
 } things_es_enrollee_state_e, things_prov_status_e, things_cloud_status_e;
 
+/**
+ * Holds access point information
+ */
 typedef struct access_point_info_s {
-	char e_ssid[WIFIMGR_SSID_LEN + 1];		// mandatory
-	char security_key[WIFIMGR_PASSPHRASE_LEN + 1];	// mandatory
-	char sec_type[MAX_TYPE_SEC +1];	// mandatory (None | WEP | WPA-PSK | WPA2-PSK)
-	char enc_type[MAX_TYPE_ENC +1];	// mandatory (WEP-64 | WEP-128 | TKIP | AES | TKIP_AES)
-	char channel[MAX_CHANNEL];	// optional
-	char signal_level[MAX_LEVEL_SIGNAL];	// optional
-	char bss_id[WIFIMGR_MACADDR_STR_LEN + 1];		// optional
+	char e_ssid[WIFIMGR_SSID_LEN + 1];		//mandatory
+	char security_key[WIFIMGR_PASSPHRASE_LEN + 1];	//mandatory
+	char sec_type[MAX_TYPE_SEC +1];	//mandatory (None | WEP | WPA-PSK | WPA2-PSK)
+	char enc_type[MAX_TYPE_ENC +1];	//mandatory (WEP-64 | WEP-128 | TKIP | AES | TKIP_AES)
+	char channel[MAX_CHANNEL];	//optional
+	char signal_level[MAX_LEVEL_SIGNAL];	//optional
+	char bss_id[WIFIMGR_MACADDR_STR_LEN + 1];		//optional
 	struct access_point_info_s* next;
 } access_point_info_s;
 
